@@ -10,11 +10,21 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    let label = UILabel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor.white
+        label.text = "Hello, World"
+        label.textAlignment = .center
+        label.textColor = .black
+        view.addSubview(label)
         // Do any additional setup after loading the view.
     }
 
-
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        label.frame = view.bounds
+    }
 }
 
