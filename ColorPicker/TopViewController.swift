@@ -29,7 +29,10 @@ class TopViewController: UIViewController {
         self.imageLoadButton.frame = CGRect(x: viewx / 8, y: viewy / 2, width: 300, height: 70)
         self.imageLoadButton.setTitle("画像を読み込む", for: .normal)
         self.imageLoadButton.setTitleColor(.white, for: .normal)
-        self.imageLoadButton.backgroundColor = .blue
+        self.imageLoadButton.backgroundColor = UIColor(red: 0.3, green: 0.7, blue: 0.6, alpha: 1)
+        self.imageLoadButton.layer.cornerRadius = 25
+        self.imageLoadButton.layer.shadowOpacity = 0.5
+        self.imageLoadButton.layer.shadowOffset = CGSize(width: 2, height: 2)
     }
 
     @objc public func loadImage(_ sender: UIButton) {
