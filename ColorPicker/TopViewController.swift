@@ -36,7 +36,9 @@ class TopViewController: UIViewController {
     }
 
     @objc public func loadImage(_ sender: UIButton) {
-        dump("button pushed")
+        let pickerController = UIImagePickerController()
+        pickerController.sourceType = .camera
+        present(pickerController, animated: true, completion: nil)
     }
 }
 
