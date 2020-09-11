@@ -37,7 +37,6 @@ class TopViewController: UIViewController {
     }
 
     @objc public func capture(_ sender: UIButton) {
-        print("button tapped!")
         let cameraVc = CameraViewController()
         present(cameraVc, animated: true, completion: nil)
     }

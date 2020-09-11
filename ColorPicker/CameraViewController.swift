@@ -15,23 +15,15 @@ class CameraViewController: UIViewController {
     var cameraPreviewLayer = AVCaptureVideoPreviewLayer() //画面表示レイヤーオブジェクト
     
     override func viewDidLoad() {
-        print("a")
         super.viewDidLoad()
-        print("b")
         setupCaptureSession()
-        print("c")
         let camera = setupDevice()
-        print("d")
         if camera == nil {
             print("デバイスが見つかりませんでした。")
         }
-        print("e")
         setInputOutput(camera: camera)
-        print("f")
         setupPreviewLayer()
-        print("g")
         session.startRunning()
-        print("h")
     }
     
 }
