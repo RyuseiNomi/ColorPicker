@@ -37,64 +37,8 @@ class TopViewController: UIViewController {
     }
 
     @objc public func capture(_ sender: UIButton) {
-        print("button tapped")
-        let cameraManager = CameraManager()
-        cameraManager.capture()
-    }
-}
-
-class CameraManager {
-    
-    var session = AVCaptureSession() // デバイスからの入力と出力を管理するオブジェクト
-    var cameraPreviewLayer = AVCaptureVideoPreviewLayer() //画面表示レイヤーオブジェクト
-
-    public func capture() {
-        print("デバイス探索中")
-        session.sessionPreset = AVCaptureSession.Preset.photo // カメラの画質の設定
-        let camera = self.setupDevice()
-        if camera == nil {
-            print("デバイスが見つかりませんでした。")
-        }
-        setInputOutput(camera: camera)
-        setupPreviewLayer()
-        print("画面に描画する")
-        session.startRunning()
-    }
-    
-    // AVCaptureDeviceクラスから取得されたデバイスのうち、背面カメラを取得する
-    // 背面カメラが見つからなかった場合にnilを返却する
-    private func setupDevice() -> AVCaptureDevice? {
-        // ビデオと背面カメラを管理するオブジェクトの生成
-        let discoveredDeviceSession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: .back)
-        let discoveredDevices = discoveredDeviceSession.devices // 条件に合ったデバイスの取得
-        for device in discoveredDevices {
-            if device.position == AVCaptureDevice.Position.back {
-                return device
-            }
-        }
-        return nil
-    }
-    
-    // デバイスのカメラの入力の初期化
-    private func setInputOutput(camera: AVCaptureDevice?) {
-        do {
-            // 指定したデバイスを使用するために入力を初期化
-            let captureDeviceInput = try AVCaptureDeviceInput(device: camera!)
-            session.addInput(captureDeviceInput) // 初期化されたデバイスをSessionに追加
-            let photoOutput = AVCapturePhotoOutput()
-            session.addOutput(photoOutput)
-        } catch {
-            print(error)
-        }
-    }
-    
-    // カメラからの映像を画面に表示するためのレイヤーの設定を行う
-    private func setupPreviewLayer() {
-        cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: session)
-        // 縦横比の設定
-        cameraPreviewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        // プレビューレイヤーの表示の向きを設定
-        cameraPreviewLayer.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
-        cameraPreviewLayer.frame = TopViewController().view.frame
+        print("button tapped!")
+        let cameraVc = CameraViewController()
+        present(cameraVc, animated: true, completion: nil)
     }
 }
