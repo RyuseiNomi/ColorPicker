@@ -11,20 +11,29 @@ import UIKit
 class TopViewController: UIViewController {
 
     let label = UILabel()
+    let imageLoadButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
-        label.text = "Hello, World"
-        label.textAlignment = .center
-        label.textColor = .black
-        view.addSubview(label)
-        // Do any additional setup after loading the view.
+        self.imageLoadButton.addTarget(self, action: #selector(self.loadImage(_ :)), for: .touchUpInside)
+        self.view.addSubview(imageLoadButton)
     }
 
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        label.frame = view.bounds
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        let viewx = self.view.frame.width
+        let viewy = self.view.frame.height
+        /* 画像読み込みボタンのレイアウト設定*/
+        self.imageLoadButton.frame = CGRect(x: viewx / 8, y: viewy / 2, width: 300, height: 70)
+        self.imageLoadButton.setTitle("画像を読み込む", for: .normal)
+        self.imageLoadButton.setTitleColor(.white, for: .normal)
+        self.imageLoadButton.backgroundColor = .blue
+    }
+
+    @objc public func loadImage(_ sender: UIButton) {
+        dump("button pushed")
     }
 }
 
