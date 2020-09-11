@@ -9,6 +9,8 @@
 import UIKit
 import AVFoundation
 
+// デバイスのカメラから写真を読み込み、映像をViewに表示する処理を担うクラス
+// [参考] https://qiita.com/t_okkan/items/f2ba9b7009b49fc2e30a
 class CameraViewController: UIViewController {
    
     var session = AVCaptureSession() // デバイスからの入力と出力を管理するオブジェクト
