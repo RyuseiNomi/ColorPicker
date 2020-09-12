@@ -13,6 +13,8 @@ import AVFoundation
 // [参考] https://qiita.com/t_okkan/items/f2ba9b7009b49fc2e30a
 class CameraViewController: UIViewController {
    
+
+    var frame = CALayer()
     var session = AVCaptureSession() // デバイスからの入力と出力を管理するオブジェクト
     var cameraPreviewLayer = AVCaptureVideoPreviewLayer() //画面表示レイヤーオブジェクト
     
@@ -72,5 +74,12 @@ extension CameraViewController {
         cameraPreviewLayer.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
         cameraPreviewLayer.frame = view.frame
         view.layer.insertSublayer(cameraPreviewLayer, at: 0)
+        
+        /* 枠線レイヤーの設定とカメラレイヤーへの追加 */
+        frame.frame = CGRect(x: cameraPreviewLayer.frame.width/2, y: cameraPreviewLayer.frame.height/2, width: 100, height: 100)
+        frame.isOpaque = false
+        frame.borderColor = UIColor.red.cgColor
+        frame.borderWidth = 2.0
+        cameraPreviewLayer.addSublayer(frame)
     }
 }
