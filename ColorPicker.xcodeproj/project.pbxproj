@@ -15,6 +15,7 @@
 		1B51BFA3250A6EF5006F03A7 /* ColorPickerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B51BFA2250A6EF5006F03A7 /* ColorPickerTests.swift */; };
 		1B51BFAE250A6EF5006F03A7 /* ColorPickerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B51BFAD250A6EF5006F03A7 /* ColorPickerUITests.swift */; };
 		1B51BFBC250BB655006F03A7 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B51BFBB250BB655006F03A7 /* CameraViewController.swift */; };
+		1B51BFC0250D0706006F03A7 /* RGBInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B51BFBF250D0706006F03A7 /* RGBInspector.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		1B51BFAD250A6EF5006F03A7 /* ColorPickerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerUITests.swift; sourceTree = "<group>"; };
 		1B51BFAF250A6EF5006F03A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1B51BFBB250BB655006F03A7 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		1B51BFBF250D0706006F03A7 /* RGBInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGBInspector.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				1B51BF8D250A6EF2006F03A7 /* SceneDelegate.swift */,
 				1B51BF8F250A6EF2006F03A7 /* TopViewController.swift */,
 				1B51BFBB250BB655006F03A7 /* CameraViewController.swift */,
+				1B51BFBF250D0706006F03A7 /* RGBInspector.swift */,
 				1B51BF94250A6EF5006F03A7 /* Assets.xcassets */,
 				1B51BF96250A6EF5006F03A7 /* LaunchScreen.storyboard */,
 				1B51BF99250A6EF5006F03A7 /* Info.plist */,
@@ -259,6 +262,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B51BF90250A6EF2006F03A7 /* TopViewController.swift in Sources */,
+				1B51BFC0250D0706006F03A7 /* RGBInspector.swift in Sources */,
 				1B51BFBC250BB655006F03A7 /* CameraViewController.swift in Sources */,
 				1B51BF8C250A6EF2006F03A7 /* AppDelegate.swift in Sources */,
 				1B51BF8E250A6EF2006F03A7 /* SceneDelegate.swift in Sources */,
