@@ -9,13 +9,13 @@
 import UIKit
 import AVFoundation
 
-// デバイスのカメラから写真を読み込み、映像をViewに表示する処理を担うクラス
-// [参考] https://qiita.com/t_okkan/items/f2ba9b7009b49fc2e30a
+/// デバイスのカメラから写真を読み込み、映像をViewに表示する処理を担うクラス
+/// [参考] https://qiita.com/t_okkan/items/f2ba9b7009b49fc2e30a
 class CameraViewController: UIViewController {
    
 
     var frame = CALayer()
-    var loadButton = CALayer()
+    var shutterButton = CALayer()
     var session = AVCaptureSession() // デバイスからの入力と出力を管理するオブジェクト
     var cameraPreviewLayer = AVCaptureVideoPreviewLayer() //画面表示レイヤーオブジェクト
     
@@ -35,12 +35,13 @@ class CameraViewController: UIViewController {
 
 extension CameraViewController {
     
+    /// カメラ画質の設定
     private func setupCaptureSession() {
         session.sessionPreset = AVCaptureSession.Preset.photo
     }
     
-    // AVCaptureDeviceクラスから取得されたデバイスのうち、背面カメラを取得する
-    // 背面カメラが見つからなかった場合にnilを返却する
+    /// AVCaptureDeviceクラスから取得されたデバイスのうち、背面カメラを取得する
+    /// 背面カメラが見つからなかった場合にnilを返却する
     private func setupDevice() -> AVCaptureDevice? {
         // ビデオと背面カメラを管理するオブジェクトの生成
         let discoveredDeviceSession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: .back)
@@ -53,7 +54,7 @@ extension CameraViewController {
         return nil
     }
     
-    // デバイスのカメラの入力の初期化
+    /// デバイスのカメラの入力の初期化
     private func setInputOutput(camera: AVCaptureDevice?) {
         do {
             // 指定したデバイスを使用するために入力を初期化
@@ -66,7 +67,7 @@ extension CameraViewController {
         }
     }
     
-    // カメラからの映像を画面に表示するためのレイヤーの設定を行う
+    /// カメラからの映像を画面に表示するためのレイヤーの設定を行う
     private func setupPreviewLayer() {
         cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: session)
         // 縦横比の設定
@@ -75,23 +76,29 @@ extension CameraViewController {
         cameraPreviewLayer.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
         cameraPreviewLayer.frame = view.frame
         view.layer.insertSublayer(cameraPreviewLayer, at: 0)
-        
-        /* 枠線レイヤーの設定とカメラレイヤーへの追加 */
+        self.setCameraFrameLine()
+        self.setShutterButton()
+    }
+    
+    /// 枠線レイヤーの設定とカメラレイヤーへの追加
+    private func setCameraFrameLine() {
         frame.frame = CGRect(x: cameraPreviewLayer.frame.width/2, y: cameraPreviewLayer.frame.height/2, width: 100, height: 100)
         frame.isOpaque = false
         frame.borderColor = UIColor.red.cgColor
         frame.borderWidth = 2.0
         cameraPreviewLayer.addSublayer(frame)
-        
-        /* 読み込みボタンの設定とカメラレイヤーへの追加 */
-        loadButton.frame = CGRect(
+    }
+    
+    /// 読み込みボタンの設定とカメラレイヤーへの追加
+    private func setShutterButton() {
+        shutterButton.frame = CGRect(
             x: cameraPreviewLayer.frame.width/2,
             y: cameraPreviewLayer.frame.height - cameraPreviewLayer.frame.width/3,
             width:80, height:80
         )
-        loadButton.backgroundColor = UIColor.yellow.cgColor
-        loadButton.cornerRadius = 50.0
-        loadButton.masksToBounds = true
-        cameraPreviewLayer.addSublayer(loadButton)
+        shutterButton.backgroundColor = UIColor.yellow.cgColor
+        shutterButton.cornerRadius = 50.0
+        shutterButton.masksToBounds = true
+        cameraPreviewLayer.addSublayer(shutterButton)
     }
 }
