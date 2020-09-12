@@ -15,6 +15,7 @@ class CameraViewController: UIViewController {
    
 
     var frame = CALayer()
+    var loadButton = CALayer()
     var session = AVCaptureSession() // デバイスからの入力と出力を管理するオブジェクト
     var cameraPreviewLayer = AVCaptureVideoPreviewLayer() //画面表示レイヤーオブジェクト
     
@@ -81,5 +82,16 @@ extension CameraViewController {
         frame.borderColor = UIColor.red.cgColor
         frame.borderWidth = 2.0
         cameraPreviewLayer.addSublayer(frame)
+        
+        /* 読み込みボタンの設定とカメラレイヤーへの追加 */
+        loadButton.frame = CGRect(
+            x: cameraPreviewLayer.frame.width/2,
+            y: cameraPreviewLayer.frame.height - cameraPreviewLayer.frame.width/3,
+            width:80, height:80
+        )
+        loadButton.backgroundColor = UIColor.yellow.cgColor
+        loadButton.cornerRadius = 50.0
+        loadButton.masksToBounds = true
+        cameraPreviewLayer.addSublayer(loadButton)
     }
 }
