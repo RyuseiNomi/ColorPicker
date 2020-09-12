@@ -80,11 +80,16 @@ extension CameraViewController {
         view.layer.insertSublayer(cameraPreviewLayer, at: 0)
         self.setCameraFrameLine()
         self.setShutterButton()
+        self.setDescriptionLabel()
     }
     
     /// 枠線レイヤーの設定とカメラレイヤーへの追加
     private func setCameraFrameLine() {
-        frame.frame = CGRect(x: cameraPreviewLayer.frame.width/2, y: cameraPreviewLayer.frame.height/2, width: 100, height: 100)
+        frame.frame.size = CGSize(width: 100, height: 100)
+        frame.position = CGPoint(
+            x: view.frame.size.width/2,
+            y: view.frame.size.height/2
+        )
         frame.isOpaque = false
         frame.borderColor = UIColor.red.cgColor
         frame.borderWidth = 2.0
@@ -93,16 +98,26 @@ extension CameraViewController {
     
     /// 読み込みボタンの設定とカメラレイヤーへの追加
     private func setShutterButton() {
-        shutterButton.frame = CGRect(
-            x: cameraPreviewLayer.frame.width/2,
-            y: cameraPreviewLayer.frame.height - cameraPreviewLayer.frame.width/3,
-            width:80, height:80
-        )
+        shutterButton.frame.size = CGSize(width: 80, height: 80)
         shutterButton.backgroundColor = UIColor.yellow
+        shutterButton.center = CGPoint(
+            x: view.frame.size.width/2,
+            y: view.frame.size.height - view.frame.size.height/6
+        )
         shutterButton.layer.cornerRadius = 40.0
         shutterButton.layer.masksToBounds = true
         shutterButton.addTarget(self, action: #selector(self.pickRGBColor), for: .touchUpInside)
         view.addSubview(shutterButton)
+    }
+    
+    /// 説明用(兼RGB取得結果表示)ラベルの設定
+    private func setDescriptionLabel() {
+        rgbShowLabel.text = "赤色の枠線に収まるよう撮影をしてください"
+        rgbShowLabel.backgroundColor = UIColor.white
+        rgbShowLabel.textColor = UIColor.black
+        rgbShowLabel.textAlignment = .center
+        rgbShowLabel.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 100)
+        view.addSubview(rgbShowLabel)
     }
     
     @objc func pickRGBColor() {
@@ -122,11 +137,6 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
             let rgbInspector = RGBInspector(image: uiImage!)
             let rgbResult = rgbInspector.getRgbColorFromUIImage()
             rgbShowLabel.text = "R: \(rgbResult["Red"]!) G: \(rgbResult["Green"]!) B: \(rgbResult["Blue"]!)"
-            rgbShowLabel.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 100)
-            rgbShowLabel.backgroundColor = UIColor.white
-            rgbShowLabel.textColor = UIColor.black
-            rgbShowLabel.textAlignment = .center
-            view.addSubview(rgbShowLabel)
         }
     }
 }
