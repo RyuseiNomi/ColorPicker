@@ -97,7 +97,7 @@ extension CameraViewController {
             width:80, height:80
         )
         shutterButton.backgroundColor = UIColor.yellow.cgColor
-        shutterButton.cornerRadius = 50.0
+        shutterButton.cornerRadius = 40.0
         shutterButton.masksToBounds = true
         cameraPreviewLayer.addSublayer(shutterButton)
     }
