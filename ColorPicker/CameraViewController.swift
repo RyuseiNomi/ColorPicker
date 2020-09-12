@@ -14,12 +14,13 @@ import AVFoundation
 class CameraViewController: UIViewController {
    
 
-    var frame = CALayer()
-    var shutterButton = UIButton()
+    var frame = CALayer() // RGB値抽出可能範囲を示すフレーム
+    var shutterButton = UIButton() // RGB値抽出のトリガーとなるボタン
+    var rgbShowLabel = UILabel() // 抽出したRGB値を表示するためのラベル
     var session = AVCaptureSession() // デバイスからの入力と出力を管理するオブジェクト
     var photoOutput = AVCapturePhotoOutput()
     var cameraPreviewLayer = AVCaptureVideoPreviewLayer() //画面表示レイヤーオブジェクト
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCaptureSession()
@@ -119,9 +120,14 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let imageData = photo.fileDataRepresentation() {
             let uiImage = UIImage(data: imageData)
-            print("撮影した画像が保存されました")
             let rgbInspector = RGBInspector(image: uiImage!)
-            rgbInspector.getRgbColorFromUIImage()
+            let rgbResult = rgbInspector.getRgbColorFromUIImage()
+            rgbShowLabel.text = "R: \(rgbResult["Red"]!) G: \(rgbResult["Green"]!) B: \(rgbResult["Blue"]!)"
+            rgbShowLabel.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 100)
+            rgbShowLabel.backgroundColor = UIColor.white
+            rgbShowLabel.textColor = UIColor.black
+            rgbShowLabel.textAlignment = .center
+            view.addSubview(rgbShowLabel)
         }
     }
 }
@@ -136,7 +142,7 @@ class RGBInspector {
     }
     
     /// UIImageから特定の範囲のピクセルのRGB値を取得する
-    public func getRgbColorFromUIImage() {
+    public func getRgbColorFromUIImage() -> [String: Int]{
         let cgImage = uiImage?.cgImage // UIImageをCGImageへ変換
         let pixelData = cgImage?.dataProvider!.data
         let data: UnsafePointer = CFDataGetBytePtr(pixelData)
@@ -148,7 +154,10 @@ class RGBInspector {
         let g = Int( CGFloat(data[pixelAddress+1]) )
         let b = Int( CGFloat(data[pixelAddress+2]) )
         let a = CGFloat(Int( CGFloat(data[pixelAddress+3]) / CGFloat(255.0)*100 )) / 100
-        print([r, g, b, a])
+        
+        // 取得したRGB値を連想配列に格納して返却する
+        let rgb = ["Red": r, "Green":g, "Blue":b]
+        return rgb
     }
     
     /// RGB値を調べる対象になっているピクセルのアドレス群を取得
